@@ -149,12 +149,22 @@ io.on('connection', (socket) => {
 
   socket.on('start',() =>{
     console.log('start-video');
-    socket.emit('playvid')
+    io.emit('playvid')
+  })
+
+  socket.on('start2',() =>{
+    console.log('start-video');
+    io.emit('playvid2')
   })
 
   socket.on('stop',() =>{
     console.log('stop-video');
-    socket.emit('stopvid')
+    io.emit('stopvid')
+  })
+
+  socket.on('stop2',() =>{
+    console.log('stop-video');
+    io.emit('stopvid2')
   })
 
   socket.on('addPhone',(e)=>{
@@ -168,6 +178,28 @@ io.on('connection', (socket) => {
             phoneNumber: user.phoneNumber,
           });
           socket.emit("added", newUser);
+          console.log("User data saved successfully!");
+        } catch (error) {
+          console.error("An error occurred while saving user data:", error);
+        }
+      } else {
+        console.log("Invalid user data provided.");
+      }
+    }
+    saveUserData(user);
+  })
+
+  socket.on('addPhone2',(e)=>{
+    const user = {
+      phoneNumber: e
+    };
+    async function saveUserData(user) {
+      if (user) {
+        try {
+          const newUser = await User.create({
+            phoneNumber: user.phoneNumber,
+          });
+          socket.emit("added2", newUser);
           console.log("User data saved successfully!");
         } catch (error) {
           console.error("An error occurred while saving user data:", error);
