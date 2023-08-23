@@ -11,6 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const route = express.Router();
 const port = process.env.PORT || 3000;
+const mongoose = require("mongoose");
+const User = require("./user");
 const corsOptions = {
   origin: ['http://localhost:4200'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -21,6 +23,17 @@ app.use(cors(corsOptions));
 app.use("/", route);
 const io = new Server(server);
 
+const mongo_URI =
+  "mongodb+srv://SAC:G8BO4x3rWEDFSYqk@cluster0.btu1pyt.mongodb.net/kestone-users";
+
+mongoose
+  .connect(mongo_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((result) => {
+    console.log("Connected to the MongoDB database");
+  })
+  .catch((error) => {
+    console.error("Error connecting to the MongoDB database:", error);
+  });
 const transporter = nodemailer.createTransport({
   // port: 465, // true for 465, false for other ports
   host: process.env.SERVER,
@@ -143,7 +156,30 @@ io.on('connection', (socket) => {
     console.log('stop-video');
     io.emit('stopvid')
   })
+
+  socket.on('addPhone',(e)=>{
+    const user = {
+      phoneNumber: e
+    };
+    async function saveUserData(user) {
+      if (user) {
+        try {
+          const newUser = await User.create({
+            phoneNumber: user.phoneNumber,
+          });
+          socket.emit("added", newUser);
+          console.log("User data saved successfully!");
+        } catch (error) {
+          console.error("An error occurred while saving user data:", error);
+        }
+      } else {
+        console.log("Invalid user data provided.");
+      }
+    }
+    saveUserData(user);
+  })
 })
+
 route.post("/sendMail", (req, res) => {
   let { to, subject, text, cardData } = req.body;
   console.log(to);
