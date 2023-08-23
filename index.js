@@ -149,12 +149,12 @@ io.on('connection', (socket) => {
 
   socket.on('start',() =>{
     console.log('start-video');
-    io.emit('playvid')
+    socket.emit('playvid')
   })
 
   socket.on('stop',() =>{
     console.log('stop-video');
-    io.emit('stopvid')
+    socket.emit('stopvid')
   })
 
   socket.on('addPhone',(e)=>{
