@@ -10,11 +10,11 @@ const { Server } = require('socket.io');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const route = express.Router();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3022;
 const mongoose = require("mongoose");
 const User = require("./user");
 const corsOptions = {
-  origin: ['http://localhost:4200'],
+  origin: ['http://localhost:3002'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: '*',
 };
@@ -63,7 +63,7 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
        <table border="0" cellpadding="0" cellspacing="0" width="480" >
          <tr>
            <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
-             <div style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 18px;" border="0">Dell Technologies Forum 2023</div>
+             <div style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 18px;" border="0">WVConnect 2024</div>
            </td>
          </tr>
        </table>
@@ -88,7 +88,7 @@ div[style*="margin: 16px 0;"] { margin: 0 !important; }
              <table width="100%" border="0" cellspacing="0" cellpadding="0">
                <tr>
                  <td colspan="2" style="padding-left:30px;padding-right:15px;padding-bottom:10px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 25px;">
-                   <p>Your requested resources from Dell Technologies Forum 2023 - Digital Library awaits you.
+                   <p>Your requested resources from WVConnect 2024 - Digital Library awaits you.
                  </td>
                </tr>`;
 
@@ -114,7 +114,7 @@ const bottomMail = `</table>
 <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;"> <table border="0" cellpadding="0" cellspacing="0" width="480">
 <tr>
 <td bgcolor="#f4f4f4" align="left" style="padding: 30px 30px 30px 30px; color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;" >
-  <p style="margin: 0;">This mail is from "<a style="color: #111111; font-weight: 700;">dtforum2023.library@kestoneglobal.biz
+  <p style="margin: 0;">This mail is from "<a style="color: #111111; font-weight: 700;">WVConnect2024
 </td>
 </tr>
 </td>
